@@ -21,7 +21,7 @@ import br.edu.ifsp.scl.prdm.sc090578.navigationintent.navigation.Screen
 import br.edu.ifsp.scl.prdm.sc090578.navigationintent.ui.theme.NavigationIntentTheme
 
 @Composable
-fun MainDropdownMenu(onNavigate: (String) -> Unit) {
+fun MainDropdownMenu(onCallPhone: () -> Unit = {}, onOpenDialer: () -> Unit = {}, onOpenWebNavigator: () -> Unit = {}, onOpenActivityOrApp: () -> Unit = {}, onNavigate: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     Box {
         IconButton(onClick = { expanded = !expanded }) {
@@ -40,6 +40,34 @@ fun MainDropdownMenu(onNavigate: (String) -> Unit) {
                 onClick = {
                     // Navega para a ParameterScreen
                     onNavigate(Screen.ParameterScreen.route)
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("Open activity or app") },
+                onClick = {
+                    onOpenActivityOrApp()
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("Open web navigator") },
+                onClick = {
+                    onOpenWebNavigator()
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("Open dialer") },
+                onClick = {
+                    onOpenDialer()
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text("Call phone") },
+                onClick = {
+                    onCallPhone()
                     expanded = false
                 }
             )

@@ -18,7 +18,7 @@ import br.edu.ifsp.scl.prdm.sc090578.navigationintent.ui.theme.NavigationIntentT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainTopAppBar(showActions: Boolean, onNavigate: (String) -> Unit) {
+fun MainTopAppBar(showActions: Boolean, onCallPhone: () -> Unit = {}, onOpenDialer: () -> Unit = {}, onOpenWebNavigator: () -> Unit = {}, onOpenActivityOrApp: () -> Unit = {}, onNavigate: (String) -> Unit) {
     TopAppBar(
         title = { Text(stringResource(R.string.app_name)) },
         modifier = Modifier.fillMaxWidth(),
@@ -26,7 +26,16 @@ fun MainTopAppBar(showActions: Boolean, onNavigate: (String) -> Unit) {
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ),
-        actions = { if (showActions) MainDropdownMenu(onNavigate) }
+        actions = {
+            if (showActions)
+                MainDropdownMenu(
+                    onCallPhone = onCallPhone,
+                    onOpenDialer = onOpenDialer,
+                    onOpenWebNavigator = onOpenWebNavigator,
+                    onOpenActivityOrApp = onOpenActivityOrApp,
+                    onNavigate = onNavigate
+                )
+        }
     )
 }
 
